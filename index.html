@@ -84,7 +84,7 @@ const heroSprites={};function heroSprite(frame){if(heroSprites[frame])return her
  }
  heroSprites[frame]=cv;return cv}
 function playerDraw(){if(P.inv>0&&tick%6<3&&!P.dead)return;const x=Math.round(P.x-camX),y=Math.round(P.y-camY),speed=Math.abs(P.spd);
- c.save();c.translate(x,y);c.scale(P.dir,1);
+ c.save();c.translate(x,y+(P.h-3));c.scale(P.dir,1);
  if(speed>6&&tick%2===0&&!P.dead){for(let i=3;i>=1;i--){c.globalAlpha=.1;const ghost=heroSprite('run1');c.drawImage(ghost,-23-i*6,-31,30,34)}c.globalAlpha=1}
  if(P.dead||P.jumping||P.rolling||P.charge>0||P.loop){c.rotate(P.rot);ellipse(0,-3,11,11,'#08328c');ellipse(0,-3,9,9,'#1967e9');for(let i=0;i<3;i++){const a=i*Math.PI*2/3;poly([Math.cos(a)*7,Math.sin(a)*7-3,Math.cos(a+.4)*14,Math.sin(a+.4)*14-3,Math.cos(a+.8)*7,Math.sin(a+.8)*7-3],'#277efa')}ellipse(5,4,5,3,'#e9363e');c.restore();return}
  const frame=speed>.5?(Math.floor(tick/(speed>5?3:6))%2?'run1':'run2'):'idle';c.drawImage(heroSprite(frame),-23,-31,31,34);c.restore()}
